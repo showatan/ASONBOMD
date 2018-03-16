@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       /* ContentResolver cr = this.getContentResolver();
+       ContentResolver cr = this.getContentResolver();
         //imag =(ImageView) findViewById(R.id.imageView2);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 5;
@@ -168,14 +168,8 @@ public class MainActivity extends AppCompatActivity
 
         //BitmapFactory.Options options = new BitmapFactory.Options();
         //options.inSampleSize = 2; Bitmap bm = BitmapFactory.decodeFile(foto, options);
-        boto1.setImageBitmap(bit);*/
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            //Creamos un bitmap con la imagen recientemente
-            //almacenada en la memoria
-            Bitmap bMap = BitmapFactory.decodeFile(foto);
-            //Añadimos el bitmap al imageView para
-            //mostrarlo por pantalla
-            boto1.setImageBitmap(bMap);
+        boto1.setImageBitmap(bit);
+
         }
     }
 }
