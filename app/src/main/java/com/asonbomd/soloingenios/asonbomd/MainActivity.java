@@ -6,12 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity
     private String foto;
     private File file;
     String timeStamp;
-
+    String path;
+    private final String CARPETA_RAIZ="imgprueba/";
+    private final String RUTA_IMAGEN=CARPETA_RAIZ+"MisFotos";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,20 +121,36 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     private void capturar() {
-        timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+       /* timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         foto = Environment.getExternalStorageDirectory() + "/"+timeStamp+".jpg";
         file=new File(foto);
         Intent in =new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         output = Uri.fromFile(file);
         in.putExtra(MediaStore.EXTRA_OUTPUT, output);
         in.putExtra(MediaStore.EXTRA_SIZE_LIMIT,102*20);
-        startActivityForResult(in, 1);
+        startActivityForResult(in, 1);*/
+
+       File fileImagen = new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);
+       boolean iscreada = fileImagen.exists();
+       if (iscreada==false) {
+           iscreada=fileImagen.mkdirs();
+       }
+        if (iscreada==false) {
+            timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        }
+        path=Environment.getExternalStorageDirectory()+File.separator+RUTA_IMAGEN+File.separator+timeStamp+".jpg";
+        File imagen = new File(path);
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
+        startActivityForResult(intent, 20);
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       ContentResolver cr = this.getContentResolver();
+       /*ContentResolver cr = this.getContentResolver();
         //imag =(ImageView) findViewById(R.id.imageView2);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 5;
@@ -168,8 +188,21 @@ public class MainActivity extends AppCompatActivity
 
         //BitmapFactory.Options options = new BitmapFactory.Options();
         //options.inSampleSize = 2; Bitmap bm = BitmapFactory.decodeFile(foto, options);
-        boto1.setImageBitmap(bit);
+        boto1.setImageBitmap(bit);*/
+       if (resultCode==RESULT_OK){
+           MediaScannerConnection.scanFile(this, new String[]{path}, null,
+                   new MediaScannerConnection.OnScanCompletedListener() {
+                       @Override
+                       public void onScanCompleted(String s, Uri uri) {
+                           Log.i("Ruta de Almacenamineto","path: "+path);
+                       }
+                   });
+           Bitmap bitmap = BitmapFactory.decodeFile(path);
+           boto1.setImageBitmap(bitmap);
+
+
+       }
 
         }
-    }
+
 }
