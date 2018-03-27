@@ -2,12 +2,17 @@ package com.asonbomd.soloingenios.asonbomd;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -23,6 +28,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -36,9 +42,12 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -54,10 +63,16 @@ public class MainActivity extends AppCompatActivity
     private File file;
     String timeStamp;
     String path;
-    private final String CARPETA_RAIZ="imgprueba/";
-    private final String RUTA_IMAGEN=CARPETA_RAIZ+"MisFotos";
+    private final String CARPETA_RAIZ = "imgprueba/";
+    private final String RUTA_IMAGEN = CARPETA_RAIZ + "MisFotos";
     private static final int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private static final int REQUEST_CODE_ASK_PERMISSIONSAL = 123;
+    private String longitud1;
+    private String latitud1;
+    private LocationManager locManager;
+    private Location loc;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +82,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -75,18 +89,18 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
 
-       //Codigo del imagenview en donde se captura la foto de la emergencia
+        //Codigo del imagenview en donde se captura la foto de la emergencia
 
-        boto1=(ImageButton)findViewById(R.id.captura);
+        boto1 = (ImageButton) findViewById(R.id.captura);
         boto1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               checkPermissioncam();
+                checkPermissioncam();
 
 
             }
         });
-       //se termina el codido del boton
+        //se termina el codido del boton
 
     }
 
@@ -106,7 +120,6 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -135,8 +148,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
     ////////////////////////////////
 
 
@@ -145,6 +156,7 @@ public class MainActivity extends AppCompatActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
 
             Toast.makeText(this, "This version is not Android 6 or later " + Build.VERSION.SDK_INT, Toast.LENGTH_LONG).show();
+            capturar();
 
         } else {
 
@@ -153,18 +165,18 @@ public class MainActivity extends AppCompatActivity
             int ubicacion = checkCallingPermission(Manifest.permission.ACCESS_FINE_LOCATION);
 
 
-            if ((hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED)||
-                    (almacenamiento != PackageManager.PERMISSION_GRANTED)||
+            if ((hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) ||
+                    (almacenamiento != PackageManager.PERMISSION_GRANTED) ||
                     (ubicacion != PackageManager.PERMISSION_GRANTED)) {
 
-                requestPermissions(new String[] {Manifest.permission.CAMERA,WRITE_EXTERNAL_STORAGE,ACCESS_FINE_LOCATION},
+                requestPermissions(new String[]{Manifest.permission.CAMERA, WRITE_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION},
                         REQUEST_CODE_ASK_PERMISSIONS);
 
                 Toast.makeText(this, "Requesting permissions", Toast.LENGTH_LONG).show();
 
-            }else if ((hasWriteContactsPermission == PackageManager.PERMISSION_GRANTED)&&
-                    (almacenamiento == PackageManager.PERMISSION_GRANTED)&&
-                    (ubicacion == PackageManager.PERMISSION_GRANTED)){
+            } else if ((hasWriteContactsPermission == PackageManager.PERMISSION_GRANTED) &&
+                    (almacenamiento == PackageManager.PERMISSION_GRANTED) &&
+                    (ubicacion == PackageManager.PERMISSION_GRANTED)) {
 
                 Toast.makeText(this, "The permissions are already granted ", Toast.LENGTH_LONG).show();
                 capturar();
@@ -175,70 +187,58 @@ public class MainActivity extends AppCompatActivity
 
         return;
     }
-    private void checkPermissionalm(){
+
+    private void checkPermissionalm() {
 
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if(REQUEST_CODE_ASK_PERMISSIONS == requestCode) {
-            if ((grantResults[0] == PackageManager.PERMISSION_GRANTED)&&
+        if (REQUEST_CODE_ASK_PERMISSIONS == requestCode) {
+            if ((grantResults[0] == PackageManager.PERMISSION_GRANTED) &&
                     (grantResults[1] == PackageManager.PERMISSION_GRANTED)
-                    &&(grantResults[2] == PackageManager.PERMISSION_GRANTED)) {
+                    && (grantResults[2] == PackageManager.PERMISSION_GRANTED)) {
                 Toast.makeText(this, "OK Permissions granted ! :-) " + Build.VERSION.SDK_INT, Toast.LENGTH_LONG).show();
                 capturar();
             } else {
                 Toast.makeText(this, "Permissions are not granted ! :-( " + Build.VERSION.SDK_INT, Toast.LENGTH_LONG).show();
             }
-        }else{
+        } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
 
-
-
-
-
-
-
-
-
-
     ///////////////////
-
-
-
 
 
     private void capturar() {
 
 
-       File fileImagen = new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);
+        File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
 
         timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        path=Environment.getExternalStorageDirectory()+File.separator+RUTA_IMAGEN+File.separator+timeStamp+".jpg";
+        path = Environment.getExternalStorageDirectory() + File.separator + RUTA_IMAGEN + File.separator + timeStamp + ".jpg";
         File imagen = new File(path);
 
 
         Intent intent = null;
-        intent= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
-        {
-            String authorities=getApplicationContext().getPackageName()+".provider";
-            Uri imageUri= FileProvider.getUriForFile(this,authorities,imagen);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            String authorities = getApplicationContext().getPackageName() + ".provider";
+            Uri imageUri = FileProvider.getUriForFile(this, authorities, imagen);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        }else
-        {
+        } else {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
         }
-        startActivityForResult(intent,20);
+        startActivityForResult(intent, 20);
 
 
         //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
         //startActivityForResult(intent, 20);
+        file = fileImagen;
 
     }
 
@@ -246,24 +246,53 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
+        if (resultCode == RESULT_OK) {
+            MediaScannerConnection.scanFile(this, new String[]{path}, null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+                        @Override
+                        public void onScanCompleted(String s, Uri uri) {
+                            Log.i("Ruta de Almacenamineto", "path: " + path);
+                        }
+                    });
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 5;
+            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+            boto1.setImageBitmap(bitmap);
+            enviardatos();
 
-       if (resultCode==RESULT_OK){
-           MediaScannerConnection.scanFile(this, new String[]{path}, null,
-                   new MediaScannerConnection.OnScanCompletedListener() {
-                       @Override
-                       public void onScanCompleted(String s, Uri uri) {
-                           Log.i("Ruta de Almacenamineto","path: "+path);
-                       }
-                   });
-           BitmapFactory.Options options = new BitmapFactory.Options();
-           options.inSampleSize = 5;
-           Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-           boto1.setImageBitmap(bitmap);
 
-
-       }
+        }
 
 
     }
+
+    /////obtencion de datos de gps
+    private void ubicacion(){
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitud1 =String.valueOf(loc.getLatitude());
+        latitud1=String.valueOf(loc.getLongitude());
+
+
+
+    }
+
+    ///////////////-----fin obtencion de gps
+
+    ////////proceso de enviar datos
+    private void enviardatos(){
+
+
+        ubicacion();
+        Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=502 40258828&text=pollo https://www.google.com/maps?q="+longitud1+","+latitud1+"&z=17&hl=es");
+        Intent inte = new Intent(Intent.ACTION_VIEW, uri);
+
+
+
+        startActivity(inte);
+
+    }
+
+    ///////////
 
 }
