@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "425309362213",
+    "firebase_url": "https://asonbomd-ef380.firebaseio.com",
+    "project_id": "asonbomd-ef380",
+    "storage_bucket": "asonbomd-ef380.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425309362213:android:4d5defe86a491898",
+        "android_client_info": {
+          "package_name": "com.asonbomd.soloingenios.asonbomd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425309362213-p6l1ao11i6ukm82f3dso3guj7nlg4vk7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIu2FX-5o73acwxGxyFvA05CFHKvSTtIQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

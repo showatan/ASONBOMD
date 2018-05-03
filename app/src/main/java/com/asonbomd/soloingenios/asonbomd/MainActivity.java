@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -41,19 +43,37 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission_group.CAMERA;
+
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,14 +83,20 @@ public class MainActivity extends AppCompatActivity
     private File file;
     String timeStamp;
     String path;
-    private final String CARPETA_RAIZ = "imgprueba/";
-    private final String RUTA_IMAGEN = CARPETA_RAIZ + "MisFotos";
+    private final String CARPETA_RAIZ = "asonbomd/";
+    private final String RUTA_IMAGEN = CARPETA_RAIZ + "fotos";
     private static final int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private static final int REQUEST_CODE_ASK_PERMISSIONSAL = 123;
     private String longitud1;
     private String latitud1;
     private LocationManager locManager;
     private Location loc;
+    private String FIREBASE_URL = "https://asonbomd-ef380.firebaseio.com/";
+    private String FIREBASE_CHILD = "ubication";
+    FirebaseDatabase database;
+    FirebaseStorage storage;
+    private String tipoemergencia;
+    private ImageButton op1, op2, op3, op4;
 
 
 
@@ -81,12 +107,67 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        database = FirebaseDatabase.getInstance();
+        storage = FirebaseStorage.getInstance();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        ////////definicion de emergencia
+        op1 = (ImageButton) findViewById(R.id.imageButton);
+        op2 = (ImageButton) findViewById(R.id.imageButton2);
+        op3 = (ImageButton) findViewById(R.id.imageButton3);
+        op4 = (ImageButton) findViewById(R.id.imageButton5);
+
+        op1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                op1.setBackgroundColor(Color.parseColor("#9AB5CF"));
+                op2.setBackgroundColor(Color.LTGRAY);
+                op3.setBackgroundColor(Color.LTGRAY);
+                op4.setBackgroundColor(Color.LTGRAY);
+                tipoemergencia="Incendio";
+            }
+        });
+        op2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                op1.setBackgroundColor(Color.LTGRAY);
+                op2.setBackgroundColor(Color.parseColor("#9AB5CF"));
+                op3.setBackgroundColor(Color.LTGRAY);
+                op4.setBackgroundColor(Color.LTGRAY);
+                tipoemergencia="Accidente";
+            }
+        });
+        op3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                op1.setBackgroundColor(Color.LTGRAY);
+                op2.setBackgroundColor(Color.LTGRAY);
+                op3.setBackgroundColor(Color.parseColor("#9AB5CF"));
+                op4.setBackgroundColor(Color.LTGRAY);
+                tipoemergencia="Derrumbe";
+            }
+        });
+        op4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                op1.setBackgroundColor(Color.LTGRAY);
+                op2.setBackgroundColor(Color.LTGRAY);
+                op3.setBackgroundColor(Color.LTGRAY);
+                op4.setBackgroundColor(Color.parseColor("#9AB5CF"));
+                tipoemergencia="Primeros Auxilios";
+            }
+        });
+
+
+
+
+        /////////fin definicion de emergencia
 
 
         //Codigo del imagenview en donde se captura la foto de la emergencia
@@ -226,10 +307,13 @@ public class MainActivity extends AppCompatActivity
         Intent intent = null;
         intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             String authorities = getApplicationContext().getPackageName() + ".provider";
             Uri imageUri = FileProvider.getUriForFile(this, authorities, imagen);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT,1024*1024);
+
         } else {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
         }
@@ -256,8 +340,14 @@ public class MainActivity extends AppCompatActivity
                     });
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 5;
+
             Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+            Save savefile = new Save();
+            savefile.SaveImage(this, bitmap);
             boto1.setImageBitmap(bitmap);
+
+
+
             enviardatos();
 
 
@@ -265,6 +355,73 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+    //////////////comprecion de foto
+
+    public class Save {
+
+        private Context TheThis;
+        private String NameOfFolder = "/asonbomd/comprimido";
+        private String NameOfFile = "imagen";
+
+        public void SaveImage(Context context, Bitmap ImageToSave) {
+
+            TheThis = context;
+            String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() + NameOfFolder;
+            String CurrentDateAndTime = getCurrentDateAndTime();
+            File dir = new File(file_path);
+
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            File file = new File(dir, timeStamp + ".jpg");
+
+            try {
+                FileOutputStream fOut = new FileOutputStream(file);
+
+                ImageToSave.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+                fOut.flush();
+                fOut.close();
+                MakeSureFileWasCreatedThenMakeAvabile(file);
+                AbleToSave();
+            }
+
+            catch(FileNotFoundException e) {
+                UnableToSave();
+            }
+            catch(IOException e) {
+                UnableToSave();
+            }
+
+        }
+
+        private void MakeSureFileWasCreatedThenMakeAvabile(File file){
+            MediaScannerConnection.scanFile(TheThis,
+                    new String[] { file.toString() } , null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+
+                        public void onScanCompleted(String path, Uri uri) {
+                        }
+                    });
+        }
+
+        private String getCurrentDateAndTime() {
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-­ss");
+            String formattedDate = df.format(c.getTime());
+            return formattedDate;
+        }
+
+        private void UnableToSave() {
+            Toast.makeText(TheThis, "¡No se ha podido guardar la imagen!", Toast.LENGTH_SHORT).show();
+        }
+
+        private void AbleToSave() {
+            Toast.makeText(TheThis, "Imagen guardada en la galería.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //////////////foto comprimida
 
     /////obtencion de datos de gps
     private void ubicacion(){
@@ -279,12 +436,37 @@ public class MainActivity extends AppCompatActivity
 
     ///////////////-----fin obtencion de gps
 
+
+    ////////definicion de emergencia
+
+
+    /////////fin definicion de emergencia
+
+
     ////////proceso de enviar datos
     private void enviardatos(){
-
-
         ubicacion();
-        Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=502 40258828&text=pollo https://www.google.com/maps?q="+longitud1+","+latitud1+"&z=17&hl=es");
+
+        DatabaseReference messageReference = database.getReference().child(timeStamp).child("ubicacion");
+        DatabaseReference messageReferencet = database.getReference().child(timeStamp).child("tipoemegencia");
+        DatabaseReference messageimagen = database.getReference().child(timeStamp).child("rutaimagen");
+
+        File fileImagen2 = new File(Environment.getExternalStorageDirectory(), "asonbomd/comprimido/");
+        messageReference.setValue("https://www.google.com/maps?q="+longitud1+","+latitud1+"&z=17&hl=es");
+        messageReferencet.setValue(tipoemergencia);
+        messageimagen.setValue("https://firebasestorage.googleapis.com/v0/b/asonbomd-ef380.appspot.com/o/imagenes%2F"+timeStamp+".jpg?alt=media");
+
+        Uri filess = Uri.fromFile(new File(fileImagen2+"/"+timeStamp+".jpg"));
+
+        StorageReference storageref = storage.getReference().child("imagenes").child(timeStamp+".jpg");
+        storageref.putFile(filess);
+
+
+
+
+
+
+        Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=502 40258828&text="+fileImagen2+" https://www.google.com/maps?q="+longitud1+","+latitud1+"&z=17&hl=es");
         Intent inte = new Intent(Intent.ACTION_VIEW, uri);
 
 
