@@ -51,9 +51,10 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".Twitter"
-                  android:label="Twitter"
-            ></activity>
+        <activity
+            android:name=".Twitter"
+            android:label="Twitter" />
+        <activity android:name=".quinessomos"></activity>
     </application>
 
 </manifest>

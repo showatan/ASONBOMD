@@ -10,8 +10,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -246,12 +244,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            Toast.makeText(getApplication(),"hola",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(),"Estamos Trabajando en Esta seccion pronto estara disponible",Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_slideshow) {
             Intent intent = new Intent(MainActivity.this, Twitter.class);
             startActivity(intent);
         }  else if (id == R.id.nav_share) {
+
 
         } else if (id == R.id.nav_send) {
 

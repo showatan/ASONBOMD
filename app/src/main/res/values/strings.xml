@@ -7,4 +7,601 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_dierectorio">Dierectorio</string>
     <string name="title_activity_twitter">Twitter</string>
+    <string-array name="departamentos">
+        <item>SELECCIONAR</item>
+        <item>Guatemala</item>
+        <item>Peten</item>
+        <item>Huehuetenango</item>
+        <item>Quiche</item>
+        <item>Alta Verapaz</item>
+        <item>Baja Verapaz</item>
+        <item>San Marcos</item>
+        <item>Quetzaltenango</item>
+        <item>Totonicapan</item>
+        <item>Solola</item>
+        <item>Retalhuleu</item>
+        <item>Suchitepequez</item>
+        <item>Chimaltenango</item>
+        <item>Sacatepequez</item>
+        <item>Escuintla</item>
+        <item>Santa Rosa</item>
+        <item>Jutiapa</item>
+        <item>Jalapa</item>
+        <item>Chiquimula</item>
+        <item>El Progreso</item>
+        <item>Zacapa</item>
+        <item>Izabal</item>
+
+    </string-array>
+    <string-array name="seleccionar">
+        <item>SELECCIONAR</item>
+    </string-array>
+    <string-array name="Guatemala">
+        <item>SELECCIONAR</item>
+        <item>Distrito Central</item>
+        <item>Santa Catarina Pinula</item>
+        <item>San Jose Pinula</item>
+        <item>San Jose del Golfo</item>
+        <item>Palencia</item>
+        <item>Chinautla</item>
+        <item>San Pedro Ayampuc</item>
+        <item>Mixco</item>
+        <item>San Pedro Sacatepequez</item>
+        <item>San Juan Sacatepequez</item>
+        <item>San Raymundo</item>
+        <item>Chuarrancho</item>
+        <item>Fraijanes</item>
+        <item>Amatitlan</item>
+        <item>Villa Nueva</item>
+        <item>Villa Canales</item>
+        <item>San Miguel Petapa</item>
+    </string-array>
+    <string-array name="Quetzaltenango">
+        <item>SELECCIONAR</item>
+        <item>Quetzaltenango</item>
+        <item>Almolonga</item>
+        <item>Cabrican</item>
+        <item>Cajola</item>
+        <item>Cantel</item>
+        <item>Coatepeque</item>
+        <item>Colomba</item>
+        <item>Concepcion Chiquirichapa</item>
+        <item>El Palmar</item>
+        <item>Flores Costa Cuca</item>
+        <item>Genova</item>
+        <item>Huitan</item>
+        <item>La Esperanza</item>
+        <item>Olintepeque</item>
+        <item>Palestina de Los Altos</item>
+        <item>Quetzaltenango</item>
+        <item>Salcaja</item>
+        <item>San Carlos Sija</item>
+        <item>San Juan Ostuncalco</item>
+        <item>San Francisco La Union</item>
+        <item>San Martin Sacatepequez</item>
+        <item>San Mateo</item>
+        <item>San Miguel Siguila</item>
+        <item>Sibilia</item>
+        <item>Zunil</item>
+    </string-array>
+    <string-array name="Peten">
+        <item>SELECCIONAR</item>
+        <item>Dolores</item>
+        <item>El Chal</item>
+        <item>Flores</item>
+        <item>La Libertad</item>
+        <item>Melchor de Mencos</item>
+        <item>Poptun</item>
+        <item>San Andres</item>
+        <item>San Benito</item>
+        <item>San Francisco</item>
+        <item>San Jose</item>
+        <item>San Luis</item>
+        <item>Santa Ana</item>
+        <item>Sayaxche</item>
+        <item>Las Cruces</item>
+    </string-array>
+    <string-array name="Huehuetenango">
+        <item>SELECCIONAR</item>
+        <item>Aguacatan</item>
+        <item>Chiantla</item>
+        <item>Colotenango</item>
+        <item>Concepcion Huista</item>
+        <item>Cuilco</item>
+        <item>Huehuetenango</item>
+        <item>Jacaltenango</item>
+        <item>La Democraci</item>a
+        <item>La Libertad</item>
+        <item>Malacatancito</item>
+        <item>Nenton</item>
+        <item>San Antonio Huista</item>
+        <item>San Gaspar Ixchil</item>
+        <item>San Ildefonso Ixtahuacan</item>
+        <item>San Juan Atitan</item>
+        <item>San Juan Ixcoy</item>
+        <item>San Mateo Ixtatan</item>
+        <item>San Miguel Acatan</item>
+        <item>San Pedro Necta</item>
+        <item>San Pedro Soloma</item>
+        <item>San Rafael La Independencia</item>
+        <item>San Rafael Petzal</item>
+        <item>San Sebastian Coatan</item>
+        <item>San Sebastian Huehuetenango</item>
+        <item>Santa Ana Huista.</item>
+        <item>Santa Barbara</item>
+        <item>Santa Cruz Barillas</item>
+        <item>Santa Eulalia</item>
+        <item>Santiago Chimaltenango</item>
+        <item>Tectitan</item>
+        <item>Todos Santos Cuchumatan</item>
+        <item>Union Cantinil</item>
+    </string-array>
+    <string-array name="Quiche">
+        <item>SELECCIONAR</item>
+        <item>Santa Cruz del Quiche</item>
+        <item>Chiche</item>
+        <item>Chinique</item>
+        <item>Zacualpa</item>
+        <item>Chajul</item>
+        <item>Chichicastenango</item>
+        <item>Patzite</item>
+        <item>San Antonio Ilotenango</item>
+        <item>San Pedro Jocopilas</item>
+        <item>Cunen</item>
+        <item>San Juan Cotzal</item>
+        <item>Joyabaj</item>
+        <item>Nebaj</item>
+        <item>San Andres Sajcabaja</item>
+        <item>Uspantan</item>
+        <item>Sacapulas</item>
+        <item>San Bartolome Jocotenango</item>
+        <item>Canilla</item>
+        <item>Chicaman</item>
+        <item>Ixcan</item>
+        <item>Pachalum</item>
+    </string-array>
+    <string-array name="AltaVerapaz">
+        <item>SELECCIONAR</item>
+        <item>Coban</item>
+        <item>Santa Cruz Verapaz</item>
+        <item>San Cristobal Verapaz</item>
+        <item>Tactic</item>
+        <item>Tamahu</item>
+        <item>Tucuru</item>
+        <item>Panzos</item>
+        <item>Senahu</item>
+        <item>San Pedro Carcha</item>
+        <item>San Juan Chamelco</item>
+        <item>Lanquin</item>
+        <item>Cahabon</item>
+        <item>Chisec</item>
+        <item>Chahal</item>
+        <item>Fray Bartolome de las Casas</item>
+    </string-array>
+    <string-array name="BajaVerapaz">
+        <item>SELECCIONAR</item>
+        <item>Salama</item>
+        <item>San Miguel Chicaj</item>
+        <item>Rabinal</item>
+        <item>Cubulco</item>
+        <item>Granados</item>
+        <item>El Chol</item>
+        <item>San Jeronimo</item>
+        <item>Purulha</item>
+    </string-array>
+    <string-array name="SanMarcos">
+        <item>SELECCIONAR</item>
+        <item>San Marcos</item>
+        <item>San Pedro Sacatepequez</item>
+        <item>San Antonio Sacatepequez</item>
+        <item>Comitancillo</item>
+        <item>San Miguel Ixtahuacan</item>
+        <item>Concepción Tutuapa</item>
+        <item>Tacana</item>
+        <item>Sibinal</item>
+        <item>Tajumulco</item>
+        <item>Tejutla</item>
+        <item>San Rafael Pie de La Cuesta</item>
+        <item>Nuevo Progreso</item>
+        <item>El Tumbador</item>
+        <item>El Rodeo</item>
+        <item>Malacatan</item>
+        <item>Catarina</item>
+        <item>Tecun Uman ( Ayutla )</item>
+        <item>Ocos</item>
+        <item>San Pablo</item>
+        <item>El Quetzal</item>
+        <item>La Reforma</item>
+        <item>Pajapita</item>
+        <item>Ixchiguan</item>
+        <item>San Jose Ojetenam</item>
+        <item>San Cristobal Cucho</item>
+        <item>Sipacapa</item>
+        <item>Esquipulas Palo Gordo</item>
+        <item>Río Blanco</item>
+        <item>San Lorenzo</item>
+        <item>La Blanca</item>
+    </string-array>
+    <string-array name="Totonicapan">
+        <item>SELECCIONAR</item>
+        <item>Totonicapan</item>
+        <item>San Cristobal Totonicapan</item>
+        <item>San Francisco El Alto</item>
+        <item>San Andres Xecul</item>
+        <item>Momostenango</item>
+        <item>Santa Maria Chiquimula</item>
+        <item>Santa Lucia La Reforma</item>
+        <item>San Bartolo</item>
+    </string-array>
+    <string-array name="Solola">
+        <item>SELECCIONAR</item>
+        <item>Solola</item>
+        <item>San Jose Chacaya</item>
+        <item>Santa María Visitacion</item>
+        <item>Santa Lucia Utatlan</item>
+        <item>Nahuala</item>
+        <item>Santa Catarina Ixtahuacan</item>
+        <item>Santa Clara La Laguna</item>
+        <item>Concepcion</item>
+        <item>San Andres Semetabaj</item>
+        <item>Panajachel</item>
+        <item>Santa Catarina Palopo</item>
+        <item>San Antonio Palopo</item>
+        <item>San Lucas Toliman</item>
+        <item>Santa Cruz La Laguna</item>
+        <item>San Pablo La Laguna</item>
+        <item>San Marcos La Laguna</item>
+        <item>San Juan La Laguna</item>
+        <item>San Pedro La Laguna</item>
+        <item>Santiago Atitlán</item>
+    </string-array>
+    <string-array name="Retalhuleu">
+        <item>SELECCIONAR</item>
+        <item>Retalhuleu</item>
+        <item>San Sebastian</item>
+        <item>Santa Cruz Mulua</item>
+        <item>San Martin Zapotitlan</item>
+        <item>San Felipe</item>
+        <item>San Andres Villa Seca</item>
+        <item>Champerico</item>
+        <item>Nuevo San Carlos</item>
+        <item>El Asintal.</item>
+    </string-array>
+    <string-array name="Suchitepequez">
+        <item>SELECCIONAR</item>
+        <item>Mazatenango</item>
+        <item>Cuyotenango</item>
+        <item>San Francisco Zapotitlan</item>
+        <item>San Bernardino</item>
+        <item>San Jose El Idolo</item>
+        <item>Santo Domingo Suchitepequez</item>
+        <item>San Lorenzo</item>
+        <item>Samayac</item>
+        <item>San Pablo Jocopilas</item>
+        <item>San Antonio Suchitepequez</item>
+        <item>San Miguel Panan</item>
+        <item>San Gabriel</item>
+        <item>Chicacao</item>
+        <item>Patulul</item>
+        <item>Santa Barbara</item>
+        <item>San Juan Bautista</item>
+        <item>Santo Tomas La Union</item>
+        <item>Zunilito</item>
+        <item>Pueblo Nuevo</item>
+        <item>Rio Bravo</item>
+    </string-array>
+    <string-array name="Chimaltenango">
+        <item>SELECCIONAR</item>
+        <item>Chimaltenango</item>
+        <item>San Jose Poaquil</item>
+        <item>San Martin Jilotepeque</item>
+        <item>San Juan Comalapa</item>
+        <item>Santa Apolonia</item>
+        <item>Tecpan Guatemala</item>
+        <item>Patzun</item>
+        <item>Pochuta</item>
+        <item>Patzicia</item>
+        <item>Santa Cruz Balanya</item>
+        <item>Acatenango</item>
+        <item>Yepocapa</item>
+        <item>San Andres Itzapa</item>
+        <item>Parramos</item>
+        <item>Zaragoza</item>
+        <item>El Tejar</item>
+    </string-array>
+    <string-array name="Sacatepequez">
+        <item>SELECCIONAR</item>
+        <item>Antigua Guatemala</item>
+        <item>Jocotenango</item>
+        <item>Pastores</item>
+        <item>Santo Domingo Xenacoj</item>
+        <item>Sumpango</item>
+        <item>Santiago Sacatepequez</item>
+        <item>San Bartolome Milpas Altas</item>
+        <item>San Lucas Sacatepequez</item>
+        <item>Santa Lucia Milpas Altas</item>
+        <item>Magdalena Milpas Altas</item>
+        <item>Santa Maria de Jesus</item>
+        <item>Ciudad Vieja</item>
+        <item>San Miguel Dueñas</item>
+        <item>Alotenango</item>
+        <item>San Antonio Aguas Calientes</item>
+        <item>Santa Catarina Barahona</item>
+    </string-array>
+    <string-array name="Escuintla">
+        <item>SELECCIONAR</item>
+        <item>Escuintla</item>
+        <item>Santa Lucia Cotzumalguapa</item>
+        <item>La Democracia</item>
+        <item>Siquinala</item>
+        <item>Masagua</item>
+        <item>Tiquisate</item>
+        <item>La Gomera</item>
+        <item>Guanagazapa</item>
+        <item>San Jose</item>
+        <item>Iztapa</item>
+        <item>Palin</item>
+        <item>San Vicente Pacaya</item>
+    </string-array>
+    <string-array name="SantaRosa">
+        <item>SELECCIONAR</item>
+        <item>Cuilapa</item>
+        <item>Barberena</item>
+        <item>Santa Rosa de Lima</item>
+        <item>Casillas</item>
+        <item>San Rafael Las Flores</item>
+        <item>Oratorio</item>
+        <item>San Juan Tecuaco</item>
+        <item>Chiquimulilla</item>
+        <item>Taxisco</item>
+        <item>Santa Maria Ixhuatan</item>
+        <item>Guazacapan</item>
+        <item>Santa Cruz Naranjo</item>
+        <item>Pueblo Nuevo</item>
+        <item>Nueva Santa Rosa</item>
+    </string-array>
+    <string-array name="Jutiapa">
+        <item>SELECCIONAR</item>
+        <item>Jutiapa</item>
+        <item>El Progreso</item>
+        <item>Santa Catarina Mita</item>
+        <item>Agua Blanca</item>
+        <item>Asuncion Mita</item>
+        <item>Yupiltepeque</item>
+        <item>Atescatempa</item>
+        <item>Jerez</item>
+        <item>El Adelanto</item>
+        <item>Zapotitlan</item>
+        <item>Comapa</item>
+        <item>Jalpatagua</item>
+        <item>Conguaco</item>
+        <item>Moyuta</item>
+        <item>Pasaco</item>
+        <item>San Jose Acatempa</item>
+        <item>Quezada.</item>
+    </string-array>
+    <string-array name="Jalapa">
+        <item>SELECCIONAR</item>
+        <item>Jalapa</item>
+        <item>San Pedro Pinula</item>
+        <item>San Luis Jilotepeque</item>
+        <item>San Manuel Chaparrón</item>
+        <item>San Carlos Alzatate</item>
+        <item>Monjas</item>
+        <item>Mataquescuintla</item>
+    </string-array>
+    <string-array name="Chiquimula">
+        <item>SELECCIONAR</item>
+        <item>Chiquimula</item>
+        <item>San Jose La Arada</item>
+        <item>San Juan Ermita</item>
+        <item>Jocotan</item>
+        <item>Camotan</item>
+        <item>Olopa</item>
+        <item>Esquipulas</item>
+        <item>Concepcion Las Minas</item>
+        <item>Quezaltepeque</item>
+        <item>San Jacinto</item>
+        <item>Ipala</item>
+    </string-array>
+    <string-array name="ElProgreso">
+        <item>SELECCIONAR</item>
+        <item>Guastatoya</item>
+        <item>Morazan</item>
+        <item>San Agustin Acasaguastlan</item>
+        <item>San Cristobal Acasaguastlan</item>
+        <item>El Jicaro</item>
+        <item>Sansare</item>
+        <item>Sanarate</item>
+        <item>San Antonio La Paz</item>
+    </string-array>
+    <string-array name="Zacapa">
+        <item>SELECCIONAR</item>
+        <item>Zacapa</item>
+        <item>Cabañas</item>
+        <item>Estanzuela</item>
+        <item>Gualan</item>
+        <item>Huite</item>
+        <item>La Union</item>
+        <item>Rio Hondo</item>
+        <item>San Diego</item>
+        <item>Teculutan</item>
+        <item>Usumatlan</item>
+        <item>San Jorge</item>
+    </string-array>
+    <string-array name="Izabal">
+        <item>SELECCIONAR</item>
+        <item>Puerto Barrios</item>
+        <item>Livingston</item>
+        <item>El Estor</item>
+        <item>Morales</item>
+        <item>Los Amates</item>
+    </string-array>
+    <string-array name="departamentouno">
+        <item>SELECCIONAR</item>
+        <item>Guatemala</item>
+        <item>Alta Verapaz</item>
+        <item>Zacapa</item>
+        <item>El Progreso</item>
+        <item>Chiquimula</item>
+        <item>Santa Rosa</item>
+        <item>Jalapa</item>
+        <item>Jutiapa</item>
+        <item>Sacatepequez</item>
+        <item>Escuintla</item>
+        <item>Chimaltenango</item>
+        <item>Suchitepequez</item>
+        <item>Totonicapan</item>
+        <item>Solola</item>
+        <item>San Marcos</item>
+        <item>Retahuleu</item>
+        <item>Quetzaltenango</item>
+        <item>Quiche</item>
+        <item>Huehuetenango</item>
+        <item>Peten</item>
+    </string-array>
+    <string-array name="Guatemala1">
+        <item>Villa Hermosa</item>
+        <item>San Miguel Petapa</item>
+        <item>Palencia</item>
+        <item>Fraijanes</item>
+        <item>Barcenas</item>
+        <item>Santa Ines Petapa</item>
+        <item>Ciudad Peronia</item>
+        <item>Aldea El Fisacal</item>
+        <item>Antigua Guatemala</item>
+        <item>Monte Rico</item>
+        <item>Santa Isabel Villa Nueva</item>
+    </string-array>
+    <string-array name="AltaVerapaz1">
+        <item>San Juan Chamelco</item>
+    </string-array>
+    <string-array name="Zacapa1">
+        <item>Rio Hondo</item>
+        <item>La Union</item>
+        <item>Usumatlan</item>
+        <item>Huite</item>
+    </string-array>
+    <string-array name="ElProgreso1">
+        <item>SELECCIONAR</item>
+        <item>El Rancho</item>
+        <item>Sanarate</item>
+    </string-array>
+    <string-array name="Chiquimula1">
+        <item>Ipala</item>
+    </string-array>
+    <string-array name="SantaRosa1">
+        <item>Santa Rosa</item>
+        <item>Santa Rosa de Lima</item>
+        <item>Casillas</item>
+        <item>San Rafael, Las Flores</item>
+        <item>Taxisco</item>
+    </string-array>
+    <string-array name="Jutiapa1">
+        <item>Ciudad Pedro de Alvarado</item>
+        <item>Agua Blanca</item>
+        <item>Jalpatagua</item>
+        <item>Conguaco</item>
+        <item>Moyuta</item>
+        <item>Pasaco</item>
+    </string-array>
+    <string-array name="Jalapa1">
+        <item>Monjas</item>
+    </string-array>
+    <string-array name="Sacatepequez1">
+        <item>Antigua Guatemala</item>
+        <item>Jocotenango</item>
+        <item>Pastores</item>
+        <item>Santo Domingo Xenacoj</item>
+        <item>Sumpango</item>
+        <item>Santiago Sacatepéquez</item>
+        <item>San Bartolomé Milpas Altas</item>
+        <item>Santa Lucía Milpas Altas</item>
+        <item>Magdalena Milpas Altas</item>
+        <item>San Antonio Aguas Calientes</item>
+        <item>San Juan Sacatepequez</item>
+        <item>San Miguel Dueñas</item>
+    </string-array>
+    <string-array name="Escuintla1">
+        <item>Masagua</item>
+        <item>La Democracia</item>
+    </string-array>
+    <string-array name="Chimaltenango1">
+        <item>San Andres Itzapa</item>
+        <item>El Tejar</item>
+        <item>Tecpan</item>
+        <item>Patzicia</item>
+        <item>Patzun</item>
+        <item>Acatenango</item>
+        <item>Santa Cruz Balanya</item>
+        <item>San Juan Comalapa</item>
+        <item>Zaragoza</item>
+        <item>San Jose Calderas</item>
+        <item>Santa Isabel</item>
+    </string-array>
+    <string-array name="Suchitepequez1">
+        <item>San Antonio</item>
+        <item>Cuyotenango</item>
+        <item>Chicacao</item>
+        <item>San Miguel Panan</item>
+        <item>San Lorenzo</item>
+        <item>Santa Barbara</item>
+        <item>Santo Tomas</item>
+        <item>Zunilito</item>
+        <item>Patulul</item>
+    </string-array>
+    <string-array name="Totonicapan1">
+        <item>Totonicapan</item>
+    </string-array>
+    <string-array name="Solola1">
+        <item>Argueta</item>
+    </string-array>
+    <string-array name="SanMarcos1">
+        <item>San Pedro</item>
+        <item>Pajapita</item>
+        <item>Concepcion Tutuapa</item>
+        <item>Nuevo Progreso</item>
+        <item>Tacana</item>
+        <item>San Pablo</item>
+        <item>San Miguel Ixtahucan</item>
+        <item>San Antonio SM</item>
+        <item>San Jose El Rodeo</item>
+        <item>La Blanca Ocos</item>
+        <item>El Porvenir</item>
+        <item>Tejutla</item>
+        <item>Sibinal</item>
+        <item>Tumbador</item>
+        <item>Catarina</item>
+        <item>Alde El Chayen</item>
+    </string-array>
+    <string-array name="Retalhuleu1">
+        <item>Santa Cruz Muluá</item>
+    </string-array>
+    <string-array name="Quetzaltenango1">
+        <item>Coatepeque</item>
+        <item>Olintepeque</item>
+        <item>Las Delicias C.C</item>
+        <item>Salcaja</item>
+        <item>Genova C.C</item>
+        <item>San Miguel Siguila</item>
+    </string-array>
+    <string-array name="Quiche1">
+        <item>Chcichicastenago</item>
+        <item>Camanchaj</item>
+        <item>Cunen</item>
+        <item>Chicaman</item>
+        <item>Santa Cruz</item>
+        <item>San Pedro Jocopilas</item>
+        <item>San Andres Sajcabaja</item>
+        <item>Santo Tomas QC</item>
+        <item>Chiul</item>
+    </string-array>
+    <string-array name="Huhuetenango1">
+        <item>Huehuetenango</item>
+    </string-array>
+    <string-array name="Peten1">
+        <item>Melchor De Mencos</item>
+        <item>Sayaxche</item>
+        <item>Dolores</item>
+    </string-array>
 </resources>
