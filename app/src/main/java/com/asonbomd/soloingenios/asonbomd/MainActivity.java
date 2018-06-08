@@ -1,6 +1,7 @@
 package com.asonbomd.soloingenios.asonbomd;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,6 +43,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity
     private Uri output;
     private String foto;
     private File file;
+    String path2;
     String timeStamp;
     String path;
     private final String CARPETA_RAIZ = "asonbomd/";
@@ -97,6 +100,9 @@ public class MainActivity extends AppCompatActivity
     FirebaseStorage storage;
     private String tipoemergencia;
     private ImageButton op1, op2, op3, op4;
+    private Button btn_enviar;
+    private String validacion="pass";
+
 
 
 
@@ -106,16 +112,20 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        database = FirebaseDatabase.getInstance();
-        storage = FirebaseStorage.getInstance();
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+
+        database = FirebaseDatabase.getInstance();
+        storage = FirebaseStorage.getInstance();
 
         ////////definicion de emergencia
         op1 = (ImageButton) findViewById(R.id.imageButton);
@@ -127,38 +137,38 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 op1.setBackgroundColor(Color.parseColor("#9AB5CF"));
-                op2.setBackgroundColor(Color.LTGRAY);
-                op3.setBackgroundColor(Color.LTGRAY);
-                op4.setBackgroundColor(Color.LTGRAY);
+                op2.setBackgroundColor(Color.parseColor("#1a237e"));
+                op3.setBackgroundColor(Color.parseColor("#1a237e"));
+                op4.setBackgroundColor(Color.parseColor("#1a237e"));
                 tipoemergencia="Incendio";
             }
         });
         op2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                op1.setBackgroundColor(Color.LTGRAY);
+                op1.setBackgroundColor(Color.parseColor("#1a237e"));
                 op2.setBackgroundColor(Color.parseColor("#9AB5CF"));
-                op3.setBackgroundColor(Color.LTGRAY);
-                op4.setBackgroundColor(Color.LTGRAY);
+                op3.setBackgroundColor(Color.parseColor("#1a237e"));
+                op4.setBackgroundColor(Color.parseColor("#1a237e"));
                 tipoemergencia="Accidente";
             }
         });
         op3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                op1.setBackgroundColor(Color.LTGRAY);
-                op2.setBackgroundColor(Color.LTGRAY);
+                op1.setBackgroundColor(Color.parseColor("#1a237e"));
+                op2.setBackgroundColor(Color.parseColor("#1a237e"));
                 op3.setBackgroundColor(Color.parseColor("#9AB5CF"));
-                op4.setBackgroundColor(Color.LTGRAY);
+                op4.setBackgroundColor(Color.parseColor("#1a237e"));
                 tipoemergencia="Derrumbe";
             }
         });
         op4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                op1.setBackgroundColor(Color.LTGRAY);
-                op2.setBackgroundColor(Color.LTGRAY);
-                op3.setBackgroundColor(Color.LTGRAY);
+                op1.setBackgroundColor(Color.parseColor("#1a237e"));
+                op2.setBackgroundColor(Color.parseColor("#1a237e"));
+                op3.setBackgroundColor(Color.parseColor("#1a237e"));
                 op4.setBackgroundColor(Color.parseColor("#9AB5CF"));
                 tipoemergencia="Primeros Auxilios";
             }
@@ -183,6 +193,26 @@ public class MainActivity extends AppCompatActivity
         });
         //se termina el codido del boton
 
+        //Codigo de boton para enviar datos
+
+        btn_enviar = (Button) findViewById(R.id.button);
+        btn_enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ((tipoemergencia == null)||(validacion.equals("pass"))){
+                    Toast.makeText(getApplication(),"Porfavor seleccione un tipo de emergencia\n\n-Incendio\n-Accidente\n-Derrumbe\n-Primeros Auxilios\n\n y capture una Fotografia",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    enviardatos();
+                }
+
+
+
+            }
+        });
+        //se termina el codido del boton
+
+
     }
 
     @Override
@@ -204,20 +234,24 @@ public class MainActivity extends AppCompatActivity
 
 
     @SuppressWarnings("StatementWithEmptyBody")
+
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            Intent intent = new Intent(MainActivity.this, Directorio.class);
+            startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            Toast.makeText(getApplication(),"hola",Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+            Intent intent = new Intent(MainActivity.this, Twitter.class);
+            startActivity(intent);
+        }  else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
@@ -297,12 +331,17 @@ public class MainActivity extends AppCompatActivity
     private void capturar() {
 
 
-        File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
+        File fileImagen2 = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
+
 
         timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        path = Environment.getExternalStorageDirectory() + File.separator + RUTA_IMAGEN + File.separator + timeStamp + ".jpg";
+        path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + RUTA_IMAGEN;
         File imagen = new File(path);
+        if (!imagen.exists()) {
+            imagen.mkdirs();
+        }
 
+        File fileimagen = new File(imagen, timeStamp + ".jpg");
 
         Intent intent = null;
         intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -310,48 +349,51 @@ public class MainActivity extends AppCompatActivity
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             String authorities = getApplicationContext().getPackageName() + ".provider";
-            Uri imageUri = FileProvider.getUriForFile(this, authorities, imagen);
+            Uri imageUri = FileProvider.getUriForFile(this, authorities, fileimagen);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT,1024*1024);
 
         } else {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileimagen));
         }
         startActivityForResult(intent, 20);
 
 
         //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
         //startActivityForResult(intent, 20);
-        file = fileImagen;
+
+        file = fileimagen;
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
+/*
         if (resultCode == RESULT_OK) {
-            MediaScannerConnection.scanFile(this, new String[]{path}, null,
+            MediaScannerConnection.scanFile(this, new String[]{"asonbomd/fotos/"+timeStamp+".jpg"}, null,
                     new MediaScannerConnection.OnScanCompletedListener() {
                         @Override
                         public void onScanCompleted(String s, Uri uri) {
-                            Log.i("Ruta de Almacenamineto", "path: " + path);
+                            Log.i("Ruta de Almacenamineto", "path: " + "asonbomd/fotos/"+timeStamp+".jpg");
                         }
-                    });
+                    });*/
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 5;
 
-            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+            Bitmap bitmap = BitmapFactory.decodeFile( path+"/"+timeStamp+".jpg", options);
             Save savefile = new Save();
             savefile.SaveImage(this, bitmap);
             boto1.setImageBitmap(bitmap);
+            validacion = "";
 
 
 
-            enviardatos();
 
 
-        }
+
+
+        //}
 
 
     }
@@ -446,10 +488,10 @@ public class MainActivity extends AppCompatActivity
     ////////proceso de enviar datos
     private void enviardatos(){
         ubicacion();
-
-        DatabaseReference messageReference = database.getReference().child(timeStamp).child("ubicacion");
-        DatabaseReference messageReferencet = database.getReference().child(timeStamp).child("tipoemegencia");
-        DatabaseReference messageimagen = database.getReference().child(timeStamp).child("rutaimagen");
+        //parte de enviar datos a firebase
+        DatabaseReference messageReference = database.getReference().child("emergencias").child(timeStamp).child("ubicacion");
+        DatabaseReference messageReferencet = database.getReference().child("emergencias").child(timeStamp).child("tipoemegencia");
+        DatabaseReference messageimagen = database.getReference().child("emergencias").child(timeStamp).child("rutaimagen");
 
         File fileImagen2 = new File(Environment.getExternalStorageDirectory(), "asonbomd/comprimido/");
         messageReference.setValue("https://www.google.com/maps?q="+longitud1+","+latitud1+"&z=17&hl=es");
@@ -464,9 +506,9 @@ public class MainActivity extends AppCompatActivity
 
 
 
+        //parte para enviar datos por whatsapp
 
-
-        Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=502 40258828&text="+fileImagen2+" https://www.google.com/maps?q="+longitud1+","+latitud1+"&z=17&hl=es");
+        Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=502 40258828&text="+tipoemergencia+" https://www.google.com/maps?q="+longitud1+","+latitud1+"&z=17&hl=es");
         Intent inte = new Intent(Intent.ACTION_VIEW, uri);
 
 
